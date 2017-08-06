@@ -301,6 +301,16 @@ func (msg *Message) UnmarshalArgument(argIndex int, value interface{}) error {
 	return nil
 }
 
+func (msg *Message) UnmarshalArguments(values ...interface{}) error {
+	for i, value := range values {
+		if err := msg.UnmarshalArgument(i, value); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 // MarshalBinary serializes the OSC message to a byte buffer. The byte buffer
 // has the following format:
 // 1. OSC Address Pattern
